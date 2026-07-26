@@ -5,9 +5,9 @@ export const handler = async (event) => {
     return { statusCode: 405, body: JSON.stringify({ error: 'Method not allowed' }) }
   }
 
-  const apiKey = process.env.GEMINI_API_KEY
+  const apiKey = process.env.GROQ_API_KEY
   if (!apiKey) {
-    return { statusCode: 500, body: JSON.stringify({ error: 'Server is missing GEMINI_API_KEY.' }) }
+    return { statusCode: 500, body: JSON.stringify({ error: 'Server is missing GROQ_API_KEY.' }) }
   }
 
   const { mode, payload } = JSON.parse(event.body || '{}')
@@ -51,17 +51,20 @@ Give brief constructive feedback on the candidate's last answer, then ask the ne
   }
 
   try {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          system_instruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
-          contents: [{ role: 'user', parts: [{ text: userPrompt }] }],
-        }),
-      }
-    )
+    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: 'llama-3.3-70b-versatile',
+        messages: [
+          { role: 'system', content: SYSTEM_INSTRUCTION },
+          { role: 'user', content: userPrompt },
+        ],
+      }),
+    })
 
     const data = await response.json()
 
@@ -69,7 +72,7 @@ Give brief constructive feedback on the candidate's last answer, then ask the ne
       return { statusCode: 502, body: JSON.stringify({ error: data.error?.message || 'The AI service failed to respond.' }) }
     }
 
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text
+    const text = data.choices?.[0]?.message?.content
     if (!text) {
       return { statusCode: 502, body: JSON.stringify({ error: 'The AI returned an empty response.' }) }
     }
@@ -78,4 +81,4 @@ Give brief constructive feedback on the candidate's last answer, then ask the ne
   } catch (err) {
     return { statusCode: 500, body: JSON.stringify({ error: 'Unexpected server error.' }) }
   }
-            }
+          }
