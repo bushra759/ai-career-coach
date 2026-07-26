@@ -59,7 +59,22 @@ Each tool sends a different structured prompt on top of this — see
 
 ## 📸 Screenshots
 
-*(add at least 3 screenshots after running the app)*
+![Home Page](Screenshot_20260726_075216.jpg)
+
+
+
+
+![Career Roadmap](Screenshot_20260726_075243.jpg)
+
+
+
+
+![Mock Interview](Screenshot_20260726_075416.jpg)
+
+
+
+
+![Resume Review](Screenshot_20260726_075744.jpg)
 
 ## 🚀 How to Run This Project
 
