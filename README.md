@@ -13,7 +13,7 @@ don't have a mentor, career office, or paid coach to turn to.
 
 ## 🔗 Live App
 
-**[https://YOUR-DEPLOYED-URL.vercel.app](https://YOUR-DEPLOYED-URL.vercel.app)**
+**[https://dreamy-tulumba-890a44.netlify.app](https://dreamy-tulumba-890a44.netlify.app)**
 
 ## ✨ Features
 
@@ -31,7 +31,7 @@ don't have a mentor, career office, or paid coach to turn to.
 
 ## 🤖 The AI Feature
 
-Every tool in this app is powered by the **Gemini API** (`gemini-2.0-flash`),
+Every tool in this app is powered by the **Groq API** (`llama-3.3-70b-versatile`),
 called from a server-side function so the API key is never exposed to the
 browser. All three tools share one system instruction:
 
@@ -45,14 +45,14 @@ interests, and constraints to suggest 2-3 concrete paths with next
 steps. Keep responses focused and not overly long.
 
 Each tool sends a different structured prompt on top of this — see
-`api/coach.js` for the exact prompts sent per mode.
+`netlify/functions/coach.js` for the exact prompts sent per mode.
 
 ## 🛠️ Tools, Services & Models Used
 
 - **React + Vite** — frontend framework and build tool
 - **Tailwind CSS** — styling
-- **Vercel** — hosting and serverless functions
-- **Google Gemini API** (`gemini-2.0-flash`) — the AI powering all three
+- **Netlify** — hosting and serverless functions
+- **Groq API** (`llama-3.3-70b-versatile`) — the AI powering all three
   coaching features
 - **Claude (Anthropic)** — used to plan the architecture and write the
   application code
@@ -69,23 +69,13 @@ Just open the live URL above. No setup needed.
 ### Option B — Run it locally
 1. Clone this repo
 2. Run `npm install`
-3. Create a `.env` file with `GEMINI_API_KEY=your_key_here`
+3. Create a `.env` file with `GROQ_API_KEY=your_key_here`
 4. Run `npm run dev`
 
 ### Deploying your own copy
 1. Push this repo to GitHub (public)
-2. Import it on [vercel.com](https://vercel.com)
-3. Add environment variable `GEMINI_API_KEY` in project settings
+2. Import it on [netlify.com](https://netlify.com)
+3. Add environment variable `GROQ_API_KEY` in project settings
 4. Deploy
 
 ## 📁 Project Structure
-
-career-coach/
-├── api/
-│   └── coach.js
-├── src/
-│   ├── components/
-│   ├── lib/api.js
-│   ├── App.jsx
-│   └── index.css
-└── README.md
