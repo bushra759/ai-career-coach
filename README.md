@@ -94,3 +94,5 @@ Just open the live URL above. No setup needed.
 4. Deploy
 
 ## 📁 Project Structure
+
+This project was built as a solo final project. I designed the app idea, features, and AI prompts myself, and used Claude (Anthropic) as a coding assistant to help write and debug the implementation, and to guide me through deployment since I built this entirely from my mobile phone. All architecture decisions, feature choices, and the AI system prompt design are my own.
